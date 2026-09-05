@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spesa Vocale</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 500px; margin: 20px auto; padding: 0 15px; }
+    h1 { text-align: center; color: #1a73e8; margin-bottom: 5px; }
+    p.subtitle { text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .voice-box { text-align: center; margin: 20px 0; }
+    .btn-mic { padding: 15px 25px; font-size: 18px; background: #28a745; color: white; border: none; border-radius: 50px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .btn-mic.listening { background: #dc3545; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    .status { font-style: italic; color: #555; height: 20px; margin-top: 8px; font-size: 14px; }
+    ul { list-style: none; padding: 0; }
+    li { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
+    .btn-del { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+    .total-box { margin-top: 20px; padding: 15px; background: #e8f0fe; border-radius: 8px; text-align: right; font-size: 22px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h1>Calcolatore Vocale</h1>
+  <p class="subtitle">Premi il microfono e pronuncia ad esempio:<br><em>"Pane due euro e cinquanta"</em> oppure <em>"Tre euro e cinquanta"</em></p>
+
+  <div class="voice-box">
+    <button id="micBtn" class="btn-mic" onclick="toggleAscolto()">🎤 Ascolta</button>
+    <div id="status" class="status">Premi per parlare</div>
+  </div>
+
+  <ul id="lista"></ul>
+
+  <div class="total-box">
+    Totale: € <span id="totale">0.00</span>
+  </div>
+
+  <script>
+    let articoli = [];
+    let recognition = null;
+    let isListening = false;
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.lang = 'it-IT';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        isListening = true;
+        const btn = document.getElementById('micBtn');
+        btn.classList.add('listening');
+        btn.innerHTML = '🛑 In ascolto...';
+        document.getElementById('status').textContent = 'Sto ascoltando...';
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        const btn = document.getElementById('micBtn');
+        btn.classList.remove('listening');
+        btn.innerHTML = '🎤 Ascolta';
+        document.getElementById('status').textContent = 'Premi per parlare';
+      };
+
+      recognition.onresult = (event) => {
+        const testo = event.results[0][0].transcript;
+        elaboraVoce(testo);
+      };
+
+      recognition.onerror = (event) => {
+        document.getElementById('status').textContent = 'Errore nel riconoscimento vocale.';
+      };
+    } else {
+      document.getElementById('status').textContent = 'Riconoscimento vocale non supportato da questo browser.';
+      document.getElementById('micBtn').disabled = true;
+    }
+
+    function toggleAscolto() {
+      if (!recognition) return;
+      if (isListening) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    function elaboraVoce(testo) {
+      document.getElementById('status').textContent = `Capito: "${testo}"`;
+      
+      // Estrae i numeri dal testo parlato
+      let prezzo = null;
+      let testoPulito = testo.toLowerCase().replace('virgola', '.').replace(',', '.');
+      
+      // Cerca numeri con eventuali decimali
+      const match = testoPulito.match(/\d+(\.\d+)?/);
+      
+      if (match) {
+        prezzo = parseFloat(match[0]);
+      }
+
+      if (prezzo !== null && !isNaN(prezzo) && prezzo > 0) {
+        // Pulisce il nome dell'articolo rimuovendo cifre e parole legate al prezzo
+        let nome = testo.replace(/\d+/g, '').replace(/euro/gi, '').replace(/virgola/gi, '').replace(/e/gi, '').trim();
+        if (!nome) nome = 'Articolo';
+
+        articoli.push({ nome: nome.charAt(0).toUpperCase() + nome.slice(1), prezzo });
+        aggiornaLista();
+      } else {
+        alert('Non ho trovato un prezzo valido. Riprova pronunciando una cifra (es. "3 euro e 50").');
+      }
+    }
+
+    function rimuoviArticolo(index) {
+      articoli.splice(index, 1);
+      aggiornaLista();
+    }
+
+    function aggiornaLista() {
+      const listaEl = document.getElementById('lista');
+      const totaleEl = document.getElementById('totale');
+      
+      listaEl.innerHTML = '';
+      let totale = 0;
+
+      articoli.forEach((item, index) => {
+        totale += item.prezzo;
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>${item.nome}: <strong>€ ${item.prezzo.toFixed(2)}</strong></span>
+          <button class="btn-del" onclick="rimuoviArticolo(${index})">Rimuovi</button>
+        `;
+        listaEl.appendChild(li);
+      });
+
+      totaleEl.textContent = totale.toFixed(2);
+    }
+  </script>
+
+</body>
+</html>

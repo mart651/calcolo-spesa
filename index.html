@@ -5,24 +5,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spesa Vocale</title>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 500px; margin: 20px auto; padding: 0 15px; }
-    h1 { text-align: center; color: #1a73e8; margin-bottom: 5px; }
-    p.subtitle { text-align: center; font-size: 14px; color: #666; margin-top: 0; }
-    .voice-box { text-align: center; margin: 20px 0; }
-    .btn-mic { padding: 15px 25px; font-size: 18px; background: #28a745; color: white; border: none; border-radius: 50px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .btn-mic.listening { background: #dc3545; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-    .status { font-style: italic; color: #555; height: 20px; margin-top: 8px; font-size: 14px; }
-    ul { list-style: none; padding: 0; }
-    li { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
-    .btn-del { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
-    .total-box { margin-top: 20px; padding: 15px; background: #e8f0fe; border-radius: 8px; text-align: right; font-size: 22px; font-weight: bold; }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+    h1 {
+      text-align: center;
+      color: #1a73e8;
+      font-size: 32px;
+      margin-top: 10px;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+    p.subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #495057;
+      margin-top: 0;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+    .voice-box {
+      text-align: center;
+      margin: 24px 0 32px 0;
+    }
+    .btn-mic {
+      padding: 22px 36px;
+      font-size: 24px;
+      font-weight: bold;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 380px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    .btn-mic:active {
+      transform: scale(0.98);
+    }
+    .btn-mic.listening {
+      background: #dc3545;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+    .status {
+      font-style: italic;
+      color: #495057;
+      min-height: 28px;
+      margin-top: 14px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 18px;
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      font-size: 22px;
+    }
+    .item-info {
+      flex: 1;
+      padding-right: 12px;
+      word-break: break-word;
+    }
+    .item-price {
+      color: #1a73e8;
+      font-weight: 700;
+    }
+    .btn-del {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      min-width: 90px;
+    }
+    .total-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: #e8f0fe;
+      border: 2px solid #b6d4fe;
+      border-radius: 14px;
+      text-align: right;
+      font-size: 30px;
+      font-weight: 800;
+      color: #0c4128;
+    }
   </style>
 </head>
 <body>
 
   <h1>Calcolatore Vocale</h1>
-  <p class="subtitle">Premi il microfono e pronuncia ad esempio:<br><em>"Pane due euro e cinquanta"</em> oppure <em>"Tre euro e cinquanta"</em></p>
+  <p class="subtitle">Premi il microfono e pronuncia:<br><strong>"Pane due euro e cinquanta"</strong></p>
 
   <div class="voice-box">
     <button id="micBtn" class="btn-mic" onclick="toggleAscolto()">🎤 Ascolta</button>
@@ -89,11 +193,9 @@
     function elaboraVoce(testo) {
       document.getElementById('status').textContent = `Capito: "${testo}"`;
       
-      // Estrae i numeri dal testo parlato
       let prezzo = null;
       let testoPulito = testo.toLowerCase().replace('virgola', '.').replace(',', '.');
       
-      // Cerca numeri con eventuali decimali
       const match = testoPulito.match(/\d+(\.\d+)?/);
       
       if (match) {
@@ -101,7 +203,6 @@
       }
 
       if (prezzo !== null && !isNaN(prezzo) && prezzo > 0) {
-        // Pulisce il nome dell'articolo rimuovendo cifre e parole legate al prezzo
         let nome = testo.replace(/\d+/g, '').replace(/euro/gi, '').replace(/virgola/gi, '').replace(/e/gi, '').trim();
         if (!nome) nome = 'Articolo';
 
@@ -128,7 +229,7 @@
         totale += item.prezzo;
         const li = document.createElement('li');
         li.innerHTML = `
-          <span>${item.nome}: <strong>€ ${item.prezzo.toFixed(2)}</strong></span>
+          <div class="item-info">${item.nome}: <span class="item-price">€ ${item.prezzo.toFixed(2)}</span></div>
           <button class="btn-del" onclick="rimuoviArticolo(${index})">Rimuovi</button>
         `;
         listaEl.appendChild(li);

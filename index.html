@@ -18,7 +18,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: env(safe-area-inset-top, 16px) 16px calc(100px + env(safe-area-inset-bottom, 16px)) 16px;
+      padding: env(safe-area-inset-top, 16px) 16px calc(120px + env(safe-area-inset-bottom, 16px)) 16px;
       max-width: 650px;
       margin: 0 auto;
     }
@@ -28,25 +28,25 @@
     }
     h1 {
       color: #1a73e8;
-      font-size: clamp(26px, 6vw, 34px);
+      font-size: clamp(30px, 8vw, 40px); /* INGRANDITO */
       font-weight: 800;
       letter-spacing: -0.5px;
     }
     p.subtitle {
-      font-size: clamp(15px, 4vw, 18px);
-      color: #5f6368;
-      margin-top: 4px;
+      font-size: clamp(18px, 5vw, 22px); /* INGRANDITO */
+      color: #495057;
+      margin-top: 6px;
       line-height: 1.35;
     }
     .voice-box {
       text-align: center;
-      margin: 12px 0 16px 0;
+      margin: 16px 0 20px 0;
     }
     .btn-mic {
       width: 100%;
-      min-height: clamp(60px, 9vh, 76px);
-      font-size: clamp(20px, 5.5vw, 26px);
-      font-weight: 700;
+      min-height: clamp(70px, 11vh, 86px);
+      font-size: clamp(24px, 6.5vw, 32px); /* INGRANDITO */
+      font-weight: 800;
       background: #28a745;
       color: #ffffff;
       border: none;
@@ -74,11 +74,11 @@
     }
     .status {
       font-style: italic;
-      color: #495057;
-      min-height: 24px;
-      margin-top: 8px;
-      font-size: clamp(14px, 3.8vw, 17px);
-      font-weight: 500;
+      color: #333333;
+      min-height: 28px;
+      margin-top: 10px;
+      font-size: clamp(17px, 4.5vw, 20px); /* INGRANDITO */
+      font-weight: 600;
     }
     .list-container {
       flex: 1;
@@ -92,13 +92,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px;
+      padding: 18px;
       background: #ffffff;
       border-radius: 16px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       border: 1px solid #e9ecef;
-      font-size: clamp(18px, 4.8vw, 22px);
+      font-size: clamp(22px, 5.8vw, 28px); /* INGRANDITO */
     }
     .item-info {
       flex: 1;
@@ -114,12 +114,12 @@
       background: #fee2e2;
       color: #dc3545;
       border: 1px solid #fecaca;
-      padding: 10px 16px;
-      font-size: clamp(15px, 4vw, 18px);
-      font-weight: 700;
+      padding: 12px 18px;
+      font-size: clamp(18px, 4.5vw, 22px); /* INGRANDITO */
+      font-weight: 800;
       border-radius: 12px;
       cursor: pointer;
-      min-width: 85px;
+      min-width: 95px;
       transition: background 0.15s;
     }
     .btn-del:active {
@@ -135,23 +135,23 @@
       right: 0;
       max-width: 650px;
       margin: 0 auto;
-      padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px)) 20px;
-      background: rgba(232, 240, 254, 0.95);
+      padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px)) 20px;
+      background: rgba(232, 240, 254, 0.98);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border-top: 2px solid #b6d4fe;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      border-top: 3px solid #b6d4fe;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: clamp(22px, 6vw, 30px);
+      font-size: clamp(26px, 7vw, 34px); /* INGRANDITO */
       font-weight: 800;
       color: #0d3c61;
       z-index: 1000;
     }
     .total-amount {
       color: #1a73e8;
-      font-size: clamp(28px, 7.5vw, 36px);
+      font-size: clamp(32px, 8.5vw, 42px); /* INGRANDITO */
     }
   </style>
 </head>
@@ -171,7 +171,6 @@
     <ul id="lista"></ul>
   </div>
 
-  <!-- Barra del totale flottante -->
   <div class="total-box-floating">
     <span>Totale</span>
     <span class="total-amount">€ <span id="totale">0.00</span></span>

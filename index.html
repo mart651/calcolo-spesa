@@ -13,7 +13,7 @@
     }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #f4f6f8;
+      background-color: #eef7f2; /* Sfondo verde chiaro */
       color: #1a1a1a;
       min-height: 100vh;
       display: flex;
@@ -27,14 +27,14 @@
       padding: 12px 0 6px 0;
     }
     h1 {
-      color: #1a73e8;
-      font-size: clamp(30px, 8vw, 40px); /* INGRANDITO */
+      color: #1b5e20;
+      font-size: clamp(30px, 8vw, 40px);
       font-weight: 800;
       letter-spacing: -0.5px;
     }
     p.subtitle {
-      font-size: clamp(18px, 5vw, 22px); /* INGRANDITO */
-      color: #495057;
+      font-size: clamp(18px, 5vw, 22px);
+      color: #2e7d32;
       margin-top: 6px;
       line-height: 1.35;
     }
@@ -45,9 +45,9 @@
     .btn-mic {
       width: 100%;
       min-height: clamp(70px, 11vh, 86px);
-      font-size: clamp(24px, 6.5vw, 32px); /* INGRANDITO */
+      font-size: clamp(24px, 6.5vw, 32px);
       font-weight: 800;
-      background: #28a745;
+      background: #2e7d32;
       color: #ffffff;
       border: none;
       border-radius: 20px;
@@ -56,15 +56,15 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      box-shadow: 0 8px 16px rgba(40, 167, 69, 0.25);
+      box-shadow: 0 8px 16px rgba(46, 125, 50, 0.3);
       transition: all 0.2s ease;
     }
     .btn-mic:active {
       transform: scale(0.97);
     }
     .btn-mic.listening {
-      background: #dc3545;
-      box-shadow: 0 8px 16px rgba(220, 53, 69, 0.3);
+      background: #c62828;
+      box-shadow: 0 8px 16px rgba(198, 40, 40, 0.3);
       animation: pulse 1.4s infinite;
     }
     @keyframes pulse {
@@ -74,10 +74,10 @@
     }
     .status {
       font-style: italic;
-      color: #333333;
+      color: #2e7d32;
       min-height: 28px;
       margin-top: 10px;
-      font-size: clamp(17px, 4.5vw, 20px); /* INGRANDITO */
+      font-size: clamp(17px, 4.5vw, 20px);
       font-weight: 600;
     }
     .list-container {
@@ -96,9 +96,9 @@
       background: #ffffff;
       border-radius: 16px;
       margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      border: 1px solid #e9ecef;
-      font-size: clamp(22px, 5.8vw, 28px); /* INGRANDITO */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid #c8e6c9;
+      font-size: clamp(22px, 5.8vw, 28px);
     }
     .item-info {
       flex: 1;
@@ -107,15 +107,15 @@
       font-weight: 600;
     }
     .item-price {
-      color: #1a73e8;
+      color: #1b5e20;
       font-weight: 800;
     }
     .btn-del {
-      background: #fee2e2;
-      color: #dc3545;
-      border: 1px solid #fecaca;
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ffcdd2;
       padding: 12px 18px;
-      font-size: clamp(18px, 4.5vw, 22px); /* INGRANDITO */
+      font-size: clamp(18px, 4.5vw, 22px);
       font-weight: 800;
       border-radius: 12px;
       cursor: pointer;
@@ -123,11 +123,11 @@
       transition: background 0.15s;
     }
     .btn-del:active {
-      background: #dc3545;
+      background: #c62828;
       color: #ffffff;
     }
 
-    /* Total box flottante ancorato in basso */
+    /* Total box flottante in basso integrato con la palette verde */
     .total-box-floating {
       position: fixed;
       bottom: 0;
@@ -136,22 +136,22 @@
       max-width: 650px;
       margin: 0 auto;
       padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px)) 20px;
-      background: rgba(232, 240, 254, 0.98);
+      background: rgba(232, 245, 233, 0.98);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border-top: 3px solid #b6d4fe;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
+      border-top: 3px solid #a5d6a7;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: clamp(26px, 7vw, 34px); /* INGRANDITO */
+      font-size: clamp(26px, 7vw, 34px);
       font-weight: 800;
-      color: #0d3c61;
+      color: #1b5e20;
       z-index: 1000;
     }
     .total-amount {
-      color: #1a73e8;
-      font-size: clamp(32px, 8.5vw, 42px); /* INGRANDITO */
+      color: #2e7d32;
+      font-size: clamp(32px, 8.5vw, 42px);
     }
   </style>
 </head>

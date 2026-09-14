@@ -2,207 +2,179 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Spesa Vocale</title>
   <style>
-    :root {
-      --primary: #1a73e8;
-      --primary-bg: #e8f0fe;
-      --success: #28a745;
-      --danger: #dc3545;
-      --text: #1f2937;
-      --text-muted: #6b7280;
-      --bg: #f3f4f6;
-      --card-bg: #ffffff;
-      --radius: 16px;
-    }
-
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       -webkit-tap-highlight-color: transparent;
     }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: env(safe-area-inset-top, 16px) env(safe-area-inset-right, 16px) env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 16px);
-      background-color: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f4f6f8;
+      color: #1a1a1a;
       min-height: 100vh;
-      min-height: -webkit-fill-available;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-      width: 100%;
-      flex: 1;
       display: flex;
       flex-direction: column;
+      padding: env(safe-area-inset-top, 16px) 16px calc(100px + env(safe-area-inset-bottom, 16px)) 16px;
+      max-width: 650px;
+      margin: 0 auto;
     }
-
     header {
       text-align: center;
-      padding: 12px 0 8px 0;
+      padding: 12px 0 6px 0;
     }
-
     h1 {
+      color: #1a73e8;
       font-size: clamp(26px, 6vw, 34px);
-      color: var(--primary);
-      margin: 0 0 6px 0;
       font-weight: 800;
       letter-spacing: -0.5px;
     }
-
     p.subtitle {
       font-size: clamp(15px, 4vw, 18px);
-      color: var(--text-muted);
-      margin: 0;
+      color: #5f6368;
+      margin-top: 4px;
       line-height: 1.35;
     }
-
     .voice-box {
       text-align: center;
-      margin: 16px 0 20px 0;
+      margin: 12px 0 16px 0;
     }
-
     .btn-mic {
       width: 100%;
-      min-height: 64px;
-      padding: 16px 24px;
-      font-size: clamp(20px, 5vw, 24px);
+      min-height: clamp(60px, 9vh, 76px);
+      font-size: clamp(20px, 5.5vw, 26px);
       font-weight: 700;
-      background-color: var(--success);
+      background: #28a745;
       color: #ffffff;
       border: none;
-      border-radius: 50px;
+      border-radius: 20px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      box-shadow: 0 4px 14px rgba(40, 167, 69, 0.35);
-      transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 16px rgba(40, 167, 69, 0.25);
+      transition: all 0.2s ease;
     }
-
     .btn-mic:active {
       transform: scale(0.97);
     }
-
     .btn-mic.listening {
-      background-color: var(--danger);
-      box-shadow: 0 4px 14px rgba(220, 53, 69, 0.4);
-      animation: pulse 1.5s infinite;
+      background: #dc3545;
+      box-shadow: 0 8px 16px rgba(220, 53, 69, 0.3);
+      animation: pulse 1.4s infinite;
     }
-
     @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.85; transform: scale(0.98); }
-      100% { opacity: 1; transform: scale(1); }
+      0% { opacity: 1; }
+      50% { opacity: 0.65; }
+      100% { opacity: 1; }
     }
-
     .status {
-      font-size: clamp(15px, 3.8vw, 17px);
-      color: var(--text-muted);
-      min-height: 24px;
-      margin-top: 10px;
-      font-weight: 500;
       font-style: italic;
+      color: #495057;
+      min-height: 24px;
+      margin-top: 8px;
+      font-size: clamp(14px, 3.8vw, 17px);
+      font-weight: 500;
     }
-
     .list-container {
       flex: 1;
       overflow-y: auto;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
-
     ul {
       list-style: none;
-      padding: 0;
-      margin: 0;
     }
-
     li {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 18px;
-      background: var(--card-bg);
-      border-radius: var(--radius);
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 16px;
       margin-bottom: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9ecef;
+      font-size: clamp(18px, 4.8vw, 22px);
     }
-
     .item-info {
       flex: 1;
       padding-right: 12px;
-      font-size: clamp(18px, 4.5vw, 22px);
-      font-weight: 600;
       word-break: break-word;
+      font-weight: 600;
     }
-
     .item-price {
-      color: var(--primary);
+      color: #1a73e8;
       font-weight: 800;
-      white-space: nowrap;
     }
-
     .btn-del {
-      background-color: #fee2e2;
-      color: var(--danger);
+      background: #fee2e2;
+      color: #dc3545;
       border: 1px solid #fecaca;
       padding: 10px 16px;
-      font-size: clamp(15px, 3.8vw, 17px);
+      font-size: clamp(15px, 4vw, 18px);
       font-weight: 700;
       border-radius: 12px;
       cursor: pointer;
-      min-width: 80px;
-      transition: background-color 0.15s ease;
+      min-width: 85px;
+      transition: background 0.15s;
     }
-
     .btn-del:active {
-      background-color: #fca5a5;
-      color: #7f1d1d;
+      background: #dc3545;
+      color: #ffffff;
     }
 
-    .total-box {
-      position: sticky;
+    /* Total box flottante ancorato in basso */
+    .total-box-floating {
+      position: fixed;
       bottom: 0;
-      padding: 18px 20px;
-      background: var(--primary-bg);
-      border: 2px solid #bfdbfe;
-      border-radius: var(--radius);
-      text-align: right;
-      font-size: clamp(24px, 6vw, 32px);
+      left: 0;
+      right: 0;
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px)) 20px;
+      background: rgba(232, 240, 254, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-top: 2px solid #b6d4fe;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(22px, 6vw, 30px);
       font-weight: 800;
-      color: #1e3a8a;
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+      color: #0d3c61;
+      z-index: 1000;
+    }
+    .total-amount {
+      color: #1a73e8;
+      font-size: clamp(28px, 7.5vw, 36px);
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>Calcolatore Vocale</h1>
-      <p class="subtitle">Premi e pronuncia ad es.:<br><strong>"Pane due euro e cinquanta"</strong></p>
-    </header>
+  <header>
+    <h1>Calcolatore Vocale</h1>
+    <p class="subtitle">Premi il microfono e pronuncia:<br><strong>"Pane 2 euro e 50"</strong></p>
+  </header>
 
-    <div class="voice-box">
-      <button id="micBtn" class="btn-mic" onclick="toggleAscolto()">🎤 Ascolta</button>
-      <div id="status" class="status">Premi per parlare</div>
-    </div>
+  <div class="voice-box">
+    <button id="micBtn" class="btn-mic" onclick="toggleAscolto()">🎤 Ascolta</button>
+    <div id="status" class="status">Premi per parlare</div>
+  </div>
 
-    <div class="list-container">
-      <ul id="lista"></ul>
-    </div>
+  <div class="list-container">
+    <ul id="lista"></ul>
+  </div>
 
-    <div class="total-box">
-      Totale: € <span id="totale">0.00</span>
-    </div>
+  <!-- Barra del totale flottante -->
+  <div class="total-box-floating">
+    <span>Totale</span>
+    <span class="total-amount">€ <span id="totale">0.00</span></span>
   </div>
 
   <script>
@@ -296,7 +268,7 @@
         const li = document.createElement('li');
         li.innerHTML = `
           <div class="item-info">${item.nome}: <span class="item-price">€ ${item.prezzo.toFixed(2)}</span></div>
-          <button class="btn-del" onclick="rimuoviArticolo(${index})">Rimuovi</button>
+          <button class="btn-del" onclick="rimuoviArticolo(${index})">Elimina</button>
         `;
         listaEl.appendChild(li);
       });
